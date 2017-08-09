@@ -23,13 +23,15 @@ public class AnimationStage extends Stage implements SortObserver {
 	Stage stage;
 	
 	public AnimationStage (SortController con) {
-		this.con = con;
-		con.addObserver(this);
-		Canvas canvas = new Canvas(1000, 500);
-        gc = canvas.getGraphicsContext2D();
-        Group root = new Group();
-        root.getChildren().add(canvas);
-        this.setScene(new Scene(root));
+		if (con != null) {
+			this.con = con;
+			con.addObserver(this);
+			Canvas canvas = new Canvas(1000, 500);
+			gc = canvas.getGraphicsContext2D();
+			Group root = new Group();
+			root.getChildren().add(canvas);
+			this.setScene(new Scene(root));
+		}
 	}
 
 	@Override

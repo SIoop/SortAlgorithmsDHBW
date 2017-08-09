@@ -63,6 +63,7 @@ public class ViewController implements ChangeListener<Toggle>, SortObserver, Eve
         		if(form.getChboxConsoleOutput().isSelected()) form.getConsole().appendText("Ergebnis: " + Arrays.toString(result) + "\n");
         		form.getConsole().appendText(seperateLine);
         		form.getBtnStart().setDisable(false);
+        		form.getBtnCancel().setDisable(true);
             }
         });
 		con = null;
