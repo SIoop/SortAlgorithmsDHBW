@@ -9,9 +9,9 @@ import javafx.scene.input.TransferMode;
 
 public class ViewDragController implements EventHandler<DragEvent> {
 
-	private GUI parent;
+	private SortingApp parent;
 	
-	public ViewDragController(GUI view) {
+	public ViewDragController(SortingApp view) {
 		super();
 		this.parent = view;
 	}
@@ -42,11 +42,11 @@ public class ViewDragController implements EventHandler<DragEvent> {
 		
 	}
 
-	public GUI getParent() {
+	public SortingApp getParent() {
 		return parent;
 	}
 
-	public void setParent(GUI parent) {
+	public void setParent(SortingApp parent) {
 		this.parent = parent;
 	}
 

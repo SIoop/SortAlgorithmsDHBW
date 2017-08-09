@@ -6,5 +6,6 @@ public interface SortAlgorithm {
 
 	public void startSingleThreaded(int[] inputArray, int delay);
 	public void startMultiThreaded(int [] inputArray, int parallelThreads, int delay);
+	public void cancel();
 	public void waitForEnd() throws InterruptedException, ExecutionException;
 }

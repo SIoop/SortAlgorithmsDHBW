@@ -4,23 +4,26 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
-public class ThreadedQuicksort extends RecursiveAction implements SortAlgorithm {
+public class Quicksort extends RecursiveAction implements SortAlgorithm {
 
 	private static final long serialVersionUID = 1L;
 	int[] arr;
 	int l, r, delay;
+	ForkJoinPool pool;
+	boolean cancelSort = false;
+	int parallelThreads;
 	
-	public ThreadedQuicksort (int [] arr, int l, int r, int delay) {
+	public Quicksort (int [] arr, int l, int r, int delay) {
 		this.arr = arr;
 		this.l = l;
 		this.r = r;
 	}
 	
-	public ThreadedQuicksort() {
+	public Quicksort() {
 	}
 	
 	private void quicksort (int left, int right) {
-		
+		if(cancelSort)return;
 		if(delay!=0) {
 			try {
 				Thread.sleep(delay);
@@ -47,7 +50,7 @@ public class ThreadedQuicksort extends RecursiveAction implements SortAlgorithm 
 		}
 		if (l<r) {
 			int p = divide(l, r);
-			invokeAll(new ThreadedQuicksort(arr, l, p, delay), new ThreadedQuicksort(arr, p + 1, r, delay));
+			invokeAll(new Quicksort(arr, l, p, delay), new Quicksort(arr, p + 1, r, delay));
 		}
 		
 	}
@@ -83,11 +86,12 @@ public class ThreadedQuicksort extends RecursiveAction implements SortAlgorithm 
 	@Override
 	public void startMultiThreaded(int[] inputArray, int parallelThreads, int delay) {
 		
-		ForkJoinPool pool = new ForkJoinPool (parallelThreads);
+		this.parallelThreads = parallelThreads;
 		this.delay = delay;
 		this.arr = inputArray;
 		this.l = 0;
 		this.r = inputArray.length - 1;
+		pool = new ForkJoinPool (parallelThreads);
 		pool.execute(this);
 		
 	}
@@ -95,5 +99,15 @@ public class ThreadedQuicksort extends RecursiveAction implements SortAlgorithm 
 	@Override
 	public void waitForEnd() throws InterruptedException, ExecutionException {
 		this.get();
+	}
+
+	@Override
+	public void cancel() {
+		
+		if (parallelThreads > 1) {
+			pool.shutdownNow();
+		} else {
+			cancelSort = true;
+		}
 	}
 }

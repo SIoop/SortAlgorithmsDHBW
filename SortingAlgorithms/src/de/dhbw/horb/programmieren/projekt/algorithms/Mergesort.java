@@ -4,24 +4,27 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
-public class ThreadedMergesort extends RecursiveAction implements SortAlgorithm  {
+public class Mergesort extends RecursiveAction implements SortAlgorithm  {
 
 	private static final long serialVersionUID = 1L;
 	int[] array;
 	int lo, hi;
 	int delay;
+	ForkJoinPool pool;
+	private int parallelThreads;
+	private boolean cancelSort;
 
-	ThreadedMergesort(int[] array, int lo, int hi, int delay) {
+	Mergesort(int[] array, int lo, int hi, int delay) {
 		this.array = array;
 		this.lo = lo;
 		this.hi = hi;
 	}
 
-	public ThreadedMergesort() {
+	public Mergesort() {
 	}
 	
 	public void mergesort(int l, int r) {
-        
+		if(cancelSort)return;
 		if(delay!=0) {
 			try {
 				Thread.sleep(delay);
@@ -48,7 +51,7 @@ public class ThreadedMergesort extends RecursiveAction implements SortAlgorithm 
 				}
 			}
 			int mid =(lo + hi) / 2;
-			invokeAll(new ThreadedMergesort(array, lo, mid, delay), new ThreadedMergesort(array, mid+1, hi, delay));
+			invokeAll(new Mergesort(array, lo, mid, delay), new Mergesort(array, mid+1, hi, delay));
 			merge(lo, mid, hi);
 		}
 	}
@@ -83,7 +86,8 @@ public class ThreadedMergesort extends RecursiveAction implements SortAlgorithm 
 	@Override
 	public void startMultiThreaded(int[] inputArray, int parallelThreads, int delay) {
 		
-		ForkJoinPool pool = new ForkJoinPool (parallelThreads);
+		this.parallelThreads = parallelThreads;
+		pool = new ForkJoinPool (parallelThreads);
 		this.delay = delay;
 		this.array = inputArray;
 		this.lo = 0;
@@ -94,5 +98,15 @@ public class ThreadedMergesort extends RecursiveAction implements SortAlgorithm 
 	@Override
 	public void waitForEnd() throws InterruptedException, ExecutionException {
 		this.get();
+	}
+	
+	@Override
+	public void cancel() {
+		
+		if (parallelThreads > 1) {
+			pool.shutdownNow();
+		} else {
+			cancelSort = true;
+		}
 	}
 }

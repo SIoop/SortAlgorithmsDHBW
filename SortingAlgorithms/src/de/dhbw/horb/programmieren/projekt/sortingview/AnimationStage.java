@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
-public class AnimationView extends Stage implements SortObserver {
+public class AnimationStage extends Stage implements SortObserver {
 
 	SortController con;
 	private GraphicsContext gc;
@@ -22,7 +22,7 @@ public class AnimationView extends Stage implements SortObserver {
 	int max;
 	Stage stage;
 	
-	public AnimationView (SortController con) {
+	public AnimationStage (SortController con) {
 		this.con = con;
 		con.addObserver(this);
 		Canvas canvas = new Canvas(1000, 500);
@@ -56,7 +56,7 @@ public class AnimationView extends Stage implements SortObserver {
 
 			@Override
 			public void run() {
-				AnimationView.this.show();
+				AnimationStage.this.show();
 				max = con.getCurrentArr()[0];
 				for (int i : con.getCurrentArr()) if(i>max)max = i;
 				new AnimationTimer() {
@@ -64,8 +64,8 @@ public class AnimationView extends Stage implements SortObserver {
 					public void handle(long arg0) {
 						if(!isShowing())this.stop();
 						
-						gc.getCanvas().setWidth(AnimationView.this.getWidth());
-						gc.getCanvas().setHeight(AnimationView.this.getHeight());
+						gc.getCanvas().setWidth(AnimationStage.this.getWidth());
+						gc.getCanvas().setHeight(AnimationStage.this.getHeight());
 						
 						xSize = (int) gc.getCanvas().getWidth();
 						ySize = (int) gc.getCanvas().getHeight();

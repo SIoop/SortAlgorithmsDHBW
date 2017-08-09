@@ -2,17 +2,19 @@ package de.dhbw.horb.programmieren.projekt.sortcontroller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
-import de.dhbw.horb.programmieren.projekt.sortcontroller.Options.InputType;
+import de.dhbw.horb.programmieren.projekt.sortcontroller.UserInput.InputType;
 
 public class SortController {
 
-	Options options;
+	UserInput options;
 	int[] currentArr;
 	private ArrayList<SortObserver> observers = new ArrayList<>();
 
-	public SortController(Options options) {
+	public SortController(UserInput options) {
 
 		this.options = options;
 	}
@@ -37,14 +39,14 @@ public class SortController {
 
 		if (options.getInputType() == InputType.MANUALLY) {
 
-			int[] inputArray = StringToArrayConverter.stringToArray(options.getManualInput());
+			int[] inputArray = stringToArray(options.getManualInput());
 			notifyArrayIsGenerated(inputArray);
 			startAlgorithm(inputArray);
 		}
 
 		if (options.getInputType()== InputType.RANDOM) {
 
-			int[] randomArray = RandomArrayGenerator.generate(options.getUpperLimit(), options.getLowerLimit(), options.getCountNumbers());
+			int[] randomArray = generate(options.getUpperLimit(), options.getLowerLimit(), options.getCountNumbers());
 			currentArr = randomArray;
 			notifyArrayIsGenerated(randomArray);
 			startAlgorithm(randomArray);
@@ -55,6 +57,11 @@ public class SortController {
 			notifyArrayIsGenerated(inputArray);
 			startAlgorithm(inputArray);
 		}
+	}
+	
+	public void cancelSorting () {
+		
+		options.getAlgorithm().cancel();
 	}
 	
 	public void startAlgorithm(int[] inputArray) {
@@ -75,11 +82,38 @@ public class SortController {
 					options.getAlgorithm().waitForEnd();
 				} catch (InterruptedException | ExecutionException e) {
 					e.printStackTrace();
+				} catch (CancellationException e) {
+					
 				}
 				timesSum += System.nanoTime()-startTime;
 			}
 		}
 		notifySortIsDone(toSort, timesSum/options.getRepNumber());
+	}
+	
+	public static int[]stringToArray(String manualInput){
+		String[] array = manualInput.split(",");
+			
+			int[] manualArrayInput = new int[array.length];
+			for (int i = 0; i < array.length; i++) {
+			    try {
+			         manualArrayInput[i] = Integer.parseInt(array[i]);
+			    } catch (NumberFormatException nfe) {};
+			}
+			return manualArrayInput;
+			
+	}
+	
+	public static int[] generate(int upper, int lower, int count) {
+		int[] inputArray = new int[count];
+		for (int o = 0; o < inputArray.length; o++) {
+			Random p = new Random();
+			int Low = lower;
+			int High = upper;
+			int Result = p.nextInt((High + 1) - Low) + Low;
+			inputArray[o] = Result;
+		}
+		return inputArray;
 	}
 
 	public int[] getCurrentArr() {

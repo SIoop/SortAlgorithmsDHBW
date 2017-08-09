@@ -2,7 +2,7 @@ package de.dhbw.horb.programmieren.projekt.sortingview;
 
 import java.util.Arrays;
 
-import de.dhbw.horb.programmieren.projekt.sortcontroller.Options.IncorrectInputException;
+import de.dhbw.horb.programmieren.projekt.sortcontroller.UserInput.IncorrectInputException;
 import de.dhbw.horb.programmieren.projekt.sortcontroller.SortController;
 import de.dhbw.horb.programmieren.projekt.sortcontroller.SortObserver;
 import javafx.application.Platform;
@@ -14,12 +14,13 @@ import javafx.scene.control.Toggle;
 
 public class ViewController implements ChangeListener<Toggle>, SortObserver, EventHandler<ActionEvent>{
 	
-	private MyGrid form;
+	private GUI form;
 	private int[] result;
 	SortController con = null;
 	String seperateLine ="----------------------------- \n";
+	Thread sorterThread;
 
-	public ViewController(MyGrid form) {
+	public ViewController(GUI form) {
 		super();
 		this.form = form;
 	}
@@ -64,43 +65,61 @@ public class ViewController implements ChangeListener<Toggle>, SortObserver, Eve
         		form.getBtnStart().setDisable(false);
             }
         });
+		con = null;
 		
 	}
 
 	@Override
 	public void handle(ActionEvent arg0) {
 		
-		try {
-			con = new SortController(form.getUserInputOptions());
-			Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    form.getBtnStart().setDisable(true);
-                    form.getConsole().appendText("Generiere Array. Bitte warten..." + "\n");
-                }
-            });
-			con.addObserver(this);
-			Thread thread = new Thread (new Runnable() {
-				
-				@Override
-				public void run() {
-					con.start();			
-				}
-				
-			});
-			thread.setDaemon(true);
-			thread.setName("Sorter-Thread");
-			thread.start();
-			if (form.getUserInputOptions().isAnimation()) {
-				
-				new AnimationView(con);
+		if(arg0.getSource() == form.getBtnCancel()) {
+			if (con!=null) {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						form.getBtnCancel().setDisable(true);
+						form.getConsole().appendText("Sortierung abgebrochen." + "\n");
+					}
+				});
+				con.cancelSorting();
+				return;
 			}
-		} catch (IncorrectInputException e) {
-			form.getConsole().setStyle("-fx-fill: RED;-fx-font-weight:bold;");
-			form.getConsole().appendText("Ungültige Eingabe!" + "\n");
-			form.getConsole().appendText(e.getMessage() + seperateLine);
-			form.getConsole().setStyle("-fx-fill: #4F8A10;-fx-font-weight:bold;");
-			form.setExceptionMessage("");
+		}
+		else {
+			
+			try {
+				con = new SortController(form.getUserInputOptions());
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						form.getBtnStart().setDisable(true);
+						form.getBtnCancel().setDisable(false);
+						form.getConsole().appendText("Generiere Array. Bitte warten..." + "\n");
+					}
+				});
+				con.addObserver(this);
+				Thread sorterThread = new Thread (new Runnable() {
+					
+					@Override
+					public void run() {
+						con.start();			
+					}
+					
+				});
+				sorterThread.setDaemon(true);
+				sorterThread.setName("Sorter-Thread");
+				sorterThread.start();
+				if (form.getUserInputOptions().isAnimation()) {
+					
+					new AnimationStage(con);
+				}
+			} catch (IncorrectInputException e) {
+				form.getConsole().setStyle("-fx-fill: RED;-fx-font-weight:bold;");
+				form.getConsole().appendText("Ungültige Eingabe!" + "\n");
+				form.getConsole().appendText(e.getMessage() + seperateLine);
+				form.getConsole().setStyle("-fx-fill: #4F8A10;-fx-font-weight:bold;");
+				form.setExceptionMessage("");
+			}
 		}
 	}
 

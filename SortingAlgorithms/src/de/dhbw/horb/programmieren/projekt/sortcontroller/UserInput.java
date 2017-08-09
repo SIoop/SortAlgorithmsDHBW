@@ -1,10 +1,10 @@
 package de.dhbw.horb.programmieren.projekt.sortcontroller;
 
 import de.dhbw.horb.programmieren.projekt.algorithms.SortAlgorithm;
-import de.dhbw.horb.programmieren.projekt.algorithms.ThreadedMergesort;
-import de.dhbw.horb.programmieren.projekt.algorithms.ThreadedQuicksort;
+import de.dhbw.horb.programmieren.projekt.algorithms.Mergesort;
+import de.dhbw.horb.programmieren.projekt.algorithms.Quicksort;
 
-public class Options {
+public class UserInput {
 
 	public enum InputType {MANUALLY, FILE, RANDOM};
 	
@@ -42,8 +42,8 @@ public class Options {
 		this.algorithm = algorithm;
 	}
 	public void setAlgorithm(String algorithm) {
-		if(algorithm=="Quicksort") this.algorithm = new ThreadedQuicksort();
-		else this.algorithm = new ThreadedMergesort();
+		if(algorithm=="Quicksort") this.algorithm = new Quicksort();
+		else this.algorithm = new Mergesort();
 	}
 	public int getNumberOfThreads() {
 		return numberOfThreads;
