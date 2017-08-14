@@ -1,4 +1,4 @@
-package de.dhbw.horb.programmieren.projekt.sortcontroller;
+package de.dhbw.horb.programmieren.projekt.io;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class IOController {
+public class FileReaderWriter {
 
 	public int[] readFile (String filepath) {
 		List<String> content;
@@ -61,7 +61,7 @@ public class IOController {
 //			test[i] = i;
 //		}
 //		new IOController().writeFile("testfile.txt", test);
-		int[] arr = new IOController().readFile("testfile.txt");
+		int[] arr = new FileReaderWriter().readFile("testfile.txt");
 		System.out.println(Arrays.toString(arr));
 	}
 }
