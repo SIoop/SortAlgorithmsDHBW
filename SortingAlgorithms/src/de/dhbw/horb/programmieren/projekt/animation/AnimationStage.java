@@ -24,39 +24,18 @@ public class AnimationStage extends Stage implements SortingListener {
 	int max;
 	Stage stage;
 	
-	public AnimationStage (SortingService con) {
-		if (con != null) {
-			this.con = con;
+	public AnimationStage () {
 			//con.addObserver(this);
 			Canvas canvas = new Canvas(1000, 500);
 			gc = canvas.getGraphicsContext2D();
 			Group root = new Group();
 			root.getChildren().add(canvas);
 			this.setScene(new Scene(root));
-		}
 	}
-
-	public void sortIsDone(int[] arr, long time) {
-
-		try {
-			Thread.sleep(1000);
-			Platform.runLater(new Runnable() {
-
-				@Override
-				public void run() {
-					close();
-				}
-				
-			});
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
 	
 	public void handle(SortingEvent event) {
 		
-		if(event.getType()==EventType.ARRAYGENERATED) {
+		if(event.getType()==EventType.SORTINGRUN) {
 			Platform.runLater(new Runnable () {
 
 				@Override
@@ -92,6 +71,17 @@ public class AnimationStage extends Stage implements SortingListener {
 							}
 						}
 			    	}.start();
+				}
+				
+			});
+		}
+		else if (event.getType()==EventType.SORTINGENDED){
+			Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					close();
 				}
 				
 			});

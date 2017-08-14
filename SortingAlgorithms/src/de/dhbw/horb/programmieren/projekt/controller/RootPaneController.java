@@ -3,6 +3,7 @@ package de.dhbw.horb.programmieren.projekt.controller;
 import java.io.File;
 import java.util.Arrays;
 
+import de.dhbw.horb.programmieren.projekt.animation.AnimationStage;
 import de.dhbw.horb.programmieren.projekt.controller.InputChecker.IncorrectInputException;
 import de.dhbw.horb.programmieren.projekt.events.EventType;
 import de.dhbw.horb.programmieren.projekt.events.SortingEvent;
@@ -90,6 +91,9 @@ public class RootPaneController implements SortingListener {
 			checker.check();
 			SortingThread starter = new SortingThread(tfLowerLimit.getText(), tfUpperLimit.getText(), tfAmount.getText(), tfManual.getText(), tfFile.getText(), algorithm, Integer.parseInt(tfThreads.getText()), Integer.parseInt(tfDelay.getText()), Integer.parseInt(tfRuns.getText()), inputMode);
 			starter.addSortListener(this);
+			if (chkAnimation.isSelected()) {
+				starter.addSortListener(new AnimationStage());
+			}
 			Thread thread = new Thread(starter);
 			thread.setDaemon(true);
 			thread.start();

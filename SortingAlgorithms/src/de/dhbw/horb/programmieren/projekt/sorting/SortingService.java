@@ -27,6 +27,9 @@ public class SortingService {
 		long avgTime = 0;
 		for (int i = 0; i < runs; i++) {
 			sorterArray = Arrays.copyOf(array, array.length);
+			SortingEvent runEvent = new SortingEvent("Array generiert", EventType.SORTINGRUN, 0);
+			runEvent.setCurrentArray(sorterArray);
+			listeners.forEach((l) -> {l.handle(runEvent);});
 			long startTime = System.nanoTime();
 			if (threads == 1) {
 				algorithm.startSingleThreaded(sorterArray, delay);
