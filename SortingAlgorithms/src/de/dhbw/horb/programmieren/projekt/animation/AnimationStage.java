@@ -8,6 +8,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.DragEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Group;

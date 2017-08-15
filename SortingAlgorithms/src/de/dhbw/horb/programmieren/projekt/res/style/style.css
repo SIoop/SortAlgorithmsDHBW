@@ -21,18 +21,58 @@
 	-fx-font-size: 14pt;
 	-fx-font-weight: bold;
 	-fx-text-fill: #333333;
+	-fx-text-stroke: white;
+	-fx-text-stroke-width: 2px;
 	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
+/*
+#btnCancel .text {
+    -fx-stroke: #666666;
+    -fx-stroke-width: 1px;
+}*/
+
+#btnStart:hover {
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
+}
+
+#btnStart:pressed {
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 50, 0.0 , 0 , 1 );
+	-fx-translate-y: 5;
+}
+
 
 #btnCancel{
 	-fx-background-color:linear-gradient(#cb1126, #c93838),
-						 radial-gradient(center 50% -40%, radius 200%, #f23838 45%, #ee1f1f 50%);
+						 radial-gradient(center 50% -40%, radius 200%, #ff6666 45%, #e60000 50%);
 	-fx-background-radius: 6, 5;
 	-fx-background-insets: 0, 1;
 	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
 	-fx-text-fill: #999999;
 	-fx-font-size: 14pt;
 	-fx-font-weight: bold;
-	-fx-text-fill: #333333;
+	-fx-text-fill: #000000;
 	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
+
+#btnCancel:hover {
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
+}
+
+#btnCancel:pressed {
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 50, 0.0 , 0 , 1 );
+	-fx-translate-y: 5;
+}
+
+
+#logoDHBW:hover {
+}
+
+/*
+#moreOptionsPane > .title {
+	-fx-background-color: transparent;
+}
+
+#moreOptionsPane > *.content {
+	-fx-background-color: transparent;
+}
+ */

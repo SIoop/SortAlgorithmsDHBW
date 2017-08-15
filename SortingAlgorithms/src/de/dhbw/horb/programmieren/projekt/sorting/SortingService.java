@@ -2,6 +2,7 @@ package de.dhbw.horb.programmieren.projekt.sorting;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
 import de.dhbw.horb.programmieren.projekt.algorithms.SortAlgorithm;
@@ -16,6 +17,7 @@ public class SortingService {
 	int threads;
 	int delay;
 	int runs;
+	Algorithm algo;
 	SortAlgorithm algorithm;
 	
 	public void startNewSort (ArrayList<SortingListener> listeners) {
@@ -31,14 +33,22 @@ public class SortingService {
 			runEvent.setCurrentArray(sorterArray);
 			listeners.forEach((l) -> {l.handle(runEvent);});
 			long startTime = System.nanoTime();
+			try {
+				algorithm = algo.getAlgorithmImplementation();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if (threads == 1) {
 				algorithm.startSingleThreaded(sorterArray, delay);
 			} else {
 				algorithm.startMultiThreaded(sorterArray, threads, delay);
 				try {
 					algorithm.waitForEnd();
-				} catch (InterruptedException | ExecutionException e) {
-					e.printStackTrace();
+				} catch (InterruptedException | ExecutionException | CancellationException e) {
 				}
 			}
 			avgTime += System.nanoTime() - startTime;
@@ -55,6 +65,10 @@ public class SortingService {
 		this.threads = threads;
 		this.delay = delay;
 		this.runs = runs;
-		this.algorithm = algorithm.getAlgorithmImplementation();
+		this.algo = algorithm;
+	}
+
+	public void cancel() {
+		algorithm.cancel();
 	}
 }

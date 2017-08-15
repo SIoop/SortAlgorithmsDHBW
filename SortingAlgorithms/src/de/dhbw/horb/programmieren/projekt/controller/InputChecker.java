@@ -32,7 +32,7 @@ public class InputChecker {
 		this.amount = amount;
 		this.manualInput = manualInput;
 		this.fileInput = fileInput;
-		this.mode = InputMode.RANDOM;
+		this.mode = mode;
 		this.threads = threads;
 		this.delay = delay;
 		this.runs = runs;
@@ -87,7 +87,7 @@ public class InputChecker {
 					break;
 				}
 			}
-			if(fileInput.equals("") || manualInput.equals("") || threads.equals("") || delay.equals("") || runs.equals("")) exceptionMessage = exceptionMessage.concat("Relevante Felder dürfen nicht leer sein!\n");
+			if(manualInput.equals("") || threads.equals("") || delay.equals("") || runs.equals("")) exceptionMessage = exceptionMessage.concat("Relevante Felder dürfen nicht leer sein!\n");
 		}
 		else {
 			

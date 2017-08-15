@@ -64,4 +64,7 @@ public class SortingThread implements Runnable {
 		service.startNewSort(listeners);
 	}
 	
+	public void cancel() {
+		service.cancel();
+	}
 }

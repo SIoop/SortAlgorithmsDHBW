@@ -10,18 +10,25 @@ import de.dhbw.horb.programmieren.projekt.events.SortingEvent;
 import de.dhbw.horb.programmieren.projekt.events.SortingListener;
 import de.dhbw.horb.programmieren.projekt.sorting.SortingThread;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
 
 public class RootPaneController implements SortingListener {
 
-	InputMode inputMode = InputMode.UNDEFINED;
-	Algorithm algorithm = Algorithm.UNDEFINED;
+	InputMode inputMode = InputMode.RANDOM;
+	Algorithm algorithm = Algorithm.QUICKSORT;
+	SortingThread starter;
 	
 	private static final String FILECHOOSERTITLE = "Wähle Eingabe Datei";
 	private static final String LINESEPERATOR = "------------------------------------------------------------------------------------\n";
@@ -89,7 +96,7 @@ public class RootPaneController implements SortingListener {
 		InputChecker checker = new InputChecker(inputMode, tfLowerLimit.getText(), tfUpperLimit.getText(), tfAmount.getText(), tfManual.getText(), tfFile.getText(), tfThreads.getText(), tfDelay.getText(), tfRuns.getText());
 		try {
 			checker.check();
-			SortingThread starter = new SortingThread(tfLowerLimit.getText(), tfUpperLimit.getText(), tfAmount.getText(), tfManual.getText(), tfFile.getText(), algorithm, Integer.parseInt(tfThreads.getText()), Integer.parseInt(tfDelay.getText()), Integer.parseInt(tfRuns.getText()), inputMode);
+			starter = new SortingThread(tfLowerLimit.getText(), tfUpperLimit.getText(), tfAmount.getText(), tfManual.getText(), tfFile.getText(), algorithm, Integer.parseInt(tfThreads.getText()), Integer.parseInt(tfDelay.getText()), Integer.parseInt(tfRuns.getText()), inputMode);
 			starter.addSortListener(this);
 			if (chkAnimation.isSelected()) {
 				starter.addSortListener(new AnimationStage());
@@ -114,6 +121,13 @@ public class RootPaneController implements SortingListener {
 	@FXML
 	protected void cancelButtonPressed() {
 		
+		
+		try {
+			starter.cancel();
+			writeToConsole("Sortierung abgebrochen.");
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+		}
 	}
 	
 	@FXML
@@ -196,7 +210,7 @@ public class RootPaneController implements SortingListener {
 			writeToConsole("Sortierung wurde nach " + event.getTime() + " Nanosekunden beendet!\n" + LINESEPERATOR);
 			if(chkConsoleOutput.isSelected() && event.getCurrentArray().length <= 1000000) {
 				writeToConsole("Array: " + Arrays.toString(event.getCurrentArray()) + "\n" + LINESEPERATOR);
-			} else if (event.getCurrentArray().length > 1000000) {
+			} else if (chkConsoleOutput.isSelected() && event.getCurrentArray().length > 1000000) {
 				writeToConsole("Ausgabe eines Arrays nur bis zur Größe von 1.000.000 möglich!");
 			}
 			Platform.runLater(new Runnable () {
@@ -211,6 +225,35 @@ public class RootPaneController implements SortingListener {
 			writeToConsole("Array wurde generiert! Algorithmus wird gestartet...\n");
 		} else if (event.getType().equals(EventType.SORTINGSTARTED)) {
 			writeToConsole(event.getMessage());
+		} 
+	}
+
+	@FXML
+	void fileDraggedOver(DragEvent event) {
+		
+		Dragboard db = event.getDragboard();
+		if (db.hasFiles()) {
+			event.acceptTransferModes(TransferMode.LINK);
+		} else {
+			event.consume();
 		}
 	}
+	
+    @FXML
+    void fileDropped(DragEvent event) {
+
+    	Dragboard db = event.getDragboard();
+        boolean success = false;
+        if (db.hasFiles()) {
+            success = true;        
+            for (File file:db.getFiles()) {
+                String filePath = file.getAbsolutePath();
+                tfFile.setText(filePath);
+                rbtnFile.setSelected(true);
+                fileSelected();
+            }
+        }
+        event.setDropCompleted(success);
+        event.consume();
+    }
 }

@@ -1,5 +1,6 @@
 package de.dhbw.horb.programmieren.projekt.algorithms;
 
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
@@ -97,8 +98,8 @@ public class Quicksort extends RecursiveAction implements SortAlgorithm {
 	}
 
 	@Override
-	public void waitForEnd() throws InterruptedException, ExecutionException {
-		this.get();
+	public void waitForEnd() throws InterruptedException, ExecutionException, CancellationException {
+			this.get();
 	}
 
 	@Override
