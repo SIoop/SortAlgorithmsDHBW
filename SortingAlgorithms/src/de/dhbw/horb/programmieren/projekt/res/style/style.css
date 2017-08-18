@@ -2,7 +2,6 @@
     -fx-font-size: 12pt;
     -fx-font-family: "Arial";
     -fx-background-image: url("../images/background.jpg");
-    /*-fx-background-size: cover;*/
     -fx-background-repeat: repeat;
 }
 
@@ -11,68 +10,108 @@
 	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
 
-#btnStart{
-	-fx-background-color:linear-gradient(#f0ff35, #a9ff00),
-						 radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+.radio-button .radio{
+	-fx-background-color:white;
+	-fx-background-radius:100;
+	-fx-pref-width:22;
+	-fx-pref-height:22;
+	-fx-border-radius:100;
+	-fx-border-color: #b0c4de;
+	-fx-border-width:2;
+}
+
+.radio-button:selected .radio{
+	-fx-border-color: #00cccc;
+	-fx-border-width:2;
+}
+
+.radio-button:selected .dot{
+	-fx-mark-color: #00cccc;
+	-fx-background-radius: 15;
+    -fx-padding: 7;
+} 
+
+.check-box > .box{	
+	-fx-background-radius: 20, 20;
+	-fx-background-color:#b0c4de;
+	-fx-border-radius: 6, 20;
+	-fx-pref-width:50;
+	-fx-pref-height:25;
+}
+
+.check-box:selected > .box{	
+	-fx-background-color:#00cccc;
+}
+
+.check-box .mark{
+	-fx-background-color: #FFFFFF;
+	-fx-shape:"M25,0 C60,0, 60,50, 25,50 C-10,50, -10,0, 25,0";
+	-fx-scale-y:1.2;
+	-fx-scale-x:0.7;
+	-fx-translate-x:-12;
+	-fx-translate-y:1.1;
+}
+
+.check-box:selected .mark{
+	-fx-translate-x:10.5;
+	-fx-translate-duration:2s;
+	-fx-translate-y:-0.2;
+}
+
+.button{
 	-fx-background-radius: 6, 5;
 	-fx-background-insets: 0, 1;
 	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-	-fx-text-fill: #999999;
 	-fx-font-size: 14pt;
 	-fx-font-weight: bold;
-	-fx-text-fill: #333333;
 	-fx-text-stroke: white;
 	-fx-text-stroke-width: 2px;
 	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
-/*
-#btnCancel .text {
-    -fx-stroke: #666666;
-    -fx-stroke-width: 1px;
-}*/
 
-#btnStart:hover {
+.button:hover {
 	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
 }
 
-#btnStart:pressed {
+.button:pressed {
 	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 50, 0.0 , 0 , 1 );
-	-fx-translate-y: 5;
+	-fx-translate-y: 2;
 }
 
+#btnStart{
+	-fx-background-color:linear-gradient(#f0ff35, #a9ff00),
+						 radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+	-fx-text-fill: #999999;
+	-fx-text-fill: #333333;
+	-fx-text-stroke: white;
+	-fx-text-stroke-width: 2px;
+}
 
 #btnCancel{
 	-fx-background-color:linear-gradient(#cb1126, #c93838),
 						 radial-gradient(center 50% -40%, radius 200%, #ff6666 45%, #e60000 50%);
-	-fx-background-radius: 6, 5;
-	-fx-background-insets: 0, 1;
-	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
 	-fx-text-fill: #999999;
-	-fx-font-size: 14pt;
-	-fx-font-weight: bold;
 	-fx-text-fill: #000000;
-	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
 
-#btnCancel:hover {
-	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
+#btnClear{
+	-fx-background-color:linear-gradient(#b3d1ff, #3385ff),
+						 radial-gradient(center 50% -40%, radius 200%, #00cccc 45%, #4d88ff 50%);
+	-fx-font-size: 10pt;
+	-fx-text-fill: #CCCCCC;
+	-fx-text-fill: #FFFFFF;
 }
 
-#btnCancel:pressed {
-	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 50, 0.0 , 0 , 1 );
-	-fx-translate-y: 5;
+#btnClear:pressed {
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 25, 0.0 , 0 , 1 );
 }
 
 
-#logoDHBW:hover {
-}
-
-/*
 #moreOptionsPane > .title {
 	-fx-background-color: transparent;
 }
 
 #moreOptionsPane > *.content {
 	-fx-background-color: transparent;
+	-fx-border-color: transparent;
 }
- */

@@ -3,7 +3,6 @@ package de.dhbw.horb.programmieren.projekt.io;
 import java.io.IOException;
 import java.net.URL;
 
-import de.dhbw.horb.programmieren.projekt.controller.RootPaneController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
