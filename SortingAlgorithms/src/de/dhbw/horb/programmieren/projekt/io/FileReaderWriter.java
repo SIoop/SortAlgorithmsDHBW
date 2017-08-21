@@ -66,8 +66,8 @@ public class FileReaderWriter {
 //		int[] arr = new FileReaderWriter().readFile("testfile.txt");
 //		System.out.println(Arrays.toString(arr));
 		ArrayGenerator generator = new ArrayGenerator();
-		int[] arr = generator.randomArray(1, Integer.MAX_VALUE, 1000000);
+		int[] arr = generator.randomArray(1, Integer.MAX_VALUE, 10000);
 		FileReaderWriter writer = new FileReaderWriter();
-		writer.writeFile("C:/users/itmetzr/desktop/test.txt", arr);
+		writer.writeFile("C:/users/itmetzr/desktop/test10k.txt", arr);
 	}
 }

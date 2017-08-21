@@ -26,7 +26,6 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 
 public class RootPaneController implements SortingListener {
@@ -124,6 +123,7 @@ public class RootPaneController implements SortingListener {
 				@Override
 				public void run() {
 					btnStart.setDisable(true);
+					btnCancel.setDisable(false);
 				}
 
 			});
@@ -237,6 +237,7 @@ public class RootPaneController implements SortingListener {
 				@Override
 				public void run() {
 					btnStart.setDisable(false);
+					btnCancel.setDisable(true);
 				}
 
 			});
