@@ -1,0 +1,25 @@
+.root{
+    -fx-font-size: 12pt;
+    -fx-font-family: "Arial";
+    -fx-background-image: url("backgroundNumbers7.jpg");
+    /*-fx-background-size: cover;*/
+    -fx-background-repeat: repeat;
+}
+
+.heading{
+	-fx-font-weight: bold;
+	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+#btnStart{
+	-fx-background-color:linear-gradient(#f0ff35, #a9ff00),
+						 radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+	-fx-background-radius: 6, 5;
+	-fx-background-insets: 0, 1;
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+	-fx-text-fill: #999999;
+	-fx-font-size: 14pt;
+	-fx-font-weight: bold;
+	-fx-text-fill: #333333;
+	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
