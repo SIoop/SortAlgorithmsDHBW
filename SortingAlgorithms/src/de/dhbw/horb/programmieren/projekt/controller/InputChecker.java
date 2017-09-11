@@ -77,7 +77,9 @@ public class InputChecker {
 			if(!new File(fileInput).exists()) {
 				exceptionMessage = exceptionMessage.concat("Ungültiger Dateipfad!\n");
 			}
-			if(fileInput.equals("") || threads.equals("") || delay.equals("") || runs.equals("")) exceptionMessage = exceptionMessage.concat("Relevante Felder dürfen nicht leer sein!\n");
+			if(!fileInput.endsWith("txt")) {
+				exceptionMessage = exceptionMessage.concat("Nur .txt-Dateien werden akzeptiert!\n");
+			}
 		}
 		else if (mode == InputMode.MANUAL) {
 			for (int i = 0; i < manualInput.length(); i++) {
@@ -87,7 +89,6 @@ public class InputChecker {
 					break;
 				}
 			}
-			if(manualInput.equals("") || threads.equals("") || delay.equals("") || runs.equals("")) exceptionMessage = exceptionMessage.concat("Relevante Felder dürfen nicht leer sein!\n");
 		}
 		else {
 			
@@ -115,8 +116,10 @@ public class InputChecker {
 				exceptionMessage = exceptionMessage.concat("Anzahl an Zufallszahlen muss eine korrekte Zahl sein!\n");
 			}
 			
-			if(amount.equals("") || upperLimit.equals("") || lowerLimit.equals("") || threads.equals("") || delay.equals("") || runs.equals("")) exceptionMessage = exceptionMessage.concat("Relevante Felder dürfen nicht leer sein!\n");
 		}
+		
+		if(fileInput.equals("") || threads.equals("") || delay.equals("") || runs.equals("")) exceptionMessage = exceptionMessage.concat("Relevante Felder dürfen nicht leer sein!\n");
+		
 		//If Exception msg is not empty, throw it
 		if(!exceptionMessage.equals("")) {
 			throw new IncorrectInputException(exceptionMessage);

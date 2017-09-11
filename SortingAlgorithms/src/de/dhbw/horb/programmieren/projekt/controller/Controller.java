@@ -243,6 +243,16 @@ public class Controller implements SortingListener {
 			writeToConsole("Array wurde generiert! Algorithmus wird gestartet...\n");
 		} else if (event.getType().equals(EventType.SORTINGSTARTED)) {
 			writeToConsole(event.getMessage());
+		} else if (event.getType().equals(EventType.FILEERROR)) {
+			writeToConsole(event.getMessage());
+			Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+					btnStart.setDisable(false);
+				}
+
+			});
 		}
 	}
 

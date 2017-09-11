@@ -14,7 +14,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 
 /**
- * AnimationStage stellt das Fenster der ANimation dar.
+ * AnimationStage stellt das Fenster der Animation dar.
+ * Bei jeder Änderung am zu sortierenden Array zeichnet sie das Array neu.
  * @author Alexander Lepper
  *
  */
@@ -30,7 +31,7 @@ public class AnimationStage extends Stage implements SortingListener {
 	Stage stage;
 	
 	public AnimationStage () {
-			//con.addObserver(this);
+		
 			Canvas canvas = new Canvas(1000, 500);
 			gc = canvas.getGraphicsContext2D();
 			Group root = new Group();
@@ -38,6 +39,10 @@ public class AnimationStage extends Stage implements SortingListener {
 			this.setScene(new Scene(root));
 	}
 	
+	/**
+	 * Diese Methode wird bei jeder Änderung am Array aufgerufen und zeichnet die Oberfläche neu.
+	 * Hierbei werden auch Änderungen an der Größe des Fensters beachtet.
+	 */
 	public void handle(SortingEvent event) {
 		
 		if(event.getType()==EventType.SORTINGRUN) {

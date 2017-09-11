@@ -56,7 +56,12 @@ public class SortingThread implements Runnable {
 		if(mode==InputMode.RANDOM) {
 			array = ArrayGenerator.randomArray(Integer.parseInt(lowerLimit), Integer.parseInt(upperLimit), Integer.parseInt(amount));
 		} else if(mode==InputMode.FILE) {
-			array = ArrayGenerator.fileArray(fileInput);
+			try {
+				array = ArrayGenerator.fileArray(fileInput);
+			} catch (NumberFormatException e) {
+				listeners.forEach((l) -> {l.handle(new SortingEvent("Fehler im Format der Eingabedatei! Nur Zahlen getrennt mit Kommas!\n", EventType.FILEERROR, 0));});
+				return;
+			}
 		} else {
 			array = ArrayGenerator.manualArray(manualInput);
 		}
