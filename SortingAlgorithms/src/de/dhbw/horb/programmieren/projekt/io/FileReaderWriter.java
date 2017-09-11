@@ -8,8 +8,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.dhbw.horb.programmieren.projekt.sorting.ArrayGenerator;
-
 public class FileReaderWriter {
 
 	public int[] readFile (String filepath) {
@@ -55,19 +53,5 @@ public class FileReaderWriter {
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	public static void main (String[] args) {
-//		int[] test = new int[65];
-//		for(int i = 0; i < test.length; i++)  {
-//			test[i] = i;
-//		}
-//		new IOController().writeFile("testfile.txt", test);
-//		int[] arr = new FileReaderWriter().readFile("testfile.txt");
-//		System.out.println(Arrays.toString(arr));
-		ArrayGenerator generator = new ArrayGenerator();
-		int[] arr = generator.randomArray(1, Integer.MAX_VALUE, 10000);
-		FileReaderWriter writer = new FileReaderWriter();
-		writer.writeFile("C:/users/itmetzr/desktop/test10k.txt", arr);
 	}
 }
