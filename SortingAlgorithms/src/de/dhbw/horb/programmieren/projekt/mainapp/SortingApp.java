@@ -6,6 +6,11 @@ import de.dhbw.horb.programmieren.projekt.io.ViewLoader;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * SortingApp dient als Einstiegspunkt für die Anwendung.
+ * 
+ * @author Alexander Lepper
+ */
 public class SortingApp extends Application {
 	
 

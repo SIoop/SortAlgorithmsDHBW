@@ -4,26 +4,45 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
+/**
+ * 
+ * Diese Klasse stellt eine Implentierung des Mergesort dar, die sowohl mit
+ * einem als auch mit mehreren Threads arbeiten kann.
+ * 
+ * @author Alexander Lepper
+ *
+ */
 public class Mergesort extends RecursiveAction implements SortAlgorithm  {
 
 	private static final long serialVersionUID = 1L;
 	int[] array;
-	int lo, hi;
+	int lowerLimit, upperLimit;
 	int delay;
 	ForkJoinPool pool;
 	private int parallelThreads;
 	private boolean cancelSort;
 
-	Mergesort(int[] array, int lo, int hi, int delay) {
+	/**
+	 * 
+	 * @param array Zu sortierendes Array
+	 * @param low Untere Grenze des zu sortierendes Bereichs
+	 * @param high Obere Grenze des zu sortierenden Bereichs
+	 * @param delay Verzögerung in ms pro Durchlauf
+	 */
+	Mergesort(int[] array, int low, int high, int delay) {
 		this.array = array;
-		this.lo = lo;
-		this.hi = hi;
-	}
-
-	public Mergesort() {
+		this.lowerLimit = low;
+		this.upperLimit = high;
 	}
 	
-	public void mergesort(int l, int r) {
+	/**
+	 * Führt Mergesort mit einem Threads aus.
+	 * Dabei wird die Verzögerung beachtet.
+	 * 
+	 * @param left Linke Grenze
+	 * @param right Rechte grenze
+	 */
+	public void mergesort(int left, int right) {
 		if(cancelSort)return;
 		if(delay!=0) {
 			try {
@@ -32,17 +51,23 @@ public class Mergesort extends RecursiveAction implements SortAlgorithm  {
 				e.printStackTrace();
 			}
 		}
-        if (l < r) {
-            int q = ( l + r ) / 2;
-            mergesort(l, q);
-            mergesort(q + 1 , r);
-            merge(l, q, r);
+        if (left < right) {
+            int middle = ( left + right ) / 2;
+            mergesort(left, middle);
+            mergesort(middle + 1 , right);
+            merge(left, middle, right);
             
         }
     }
 
+	
+	/**
+	 * Diese Methode wird vom Fork-Join-Framework bei der
+	 * Ausführung mit mehreren Threads aufgerufen. Sie
+	 * entspricht  in ihrer Logik der mergesort-Methode.
+	 */
 	protected void compute() {
-		if (lo < hi) {
+		if (lowerLimit < upperLimit) {
 			if(delay!=0) {
 				try {
 					Thread.sleep(delay);
@@ -50,30 +75,46 @@ public class Mergesort extends RecursiveAction implements SortAlgorithm  {
 					e.printStackTrace();
 				}
 			}
-			int mid =(lo + hi) / 2;
-			invokeAll(new Mergesort(array, lo, mid, delay), new Mergesort(array, mid+1, hi, delay));
-			merge(lo, mid, hi);
+			int middle =(lowerLimit + upperLimit) / 2;
+			invokeAll(new Mergesort(array, lowerLimit, middle, delay), new Mergesort(array, middle+1, upperLimit, delay));
+			merge(lowerLimit, middle, upperLimit);
 		}
 	}
 
-	void merge(int lo, int m, int hi)
+	/**
+	 * Merget das Array von left bis middle mit dem Array von middle bis right.
+	 * 
+	 * @param left Linke Grenze des unteren Arrays
+	 * @param middle Rechte Grenze des unteren Arrays/ Linke Grenze des oberen Arrays
+	 * @param right Rechte Grenze des oberen Arrays
+	 */
+	void merge(int left, int middle, int right)
 	{
-	    int i, j, k;
-	    int[] b = new int[m-lo+1];
+		int counterFromZero, counterFromLeft, counterSortedArray;
+		int[] tempArray = new int[middle - left + 1];
 
-	    i=0; j=lo;
-	    while (j<=m)
-	        b[i++]=array[j++];
+		//Baue temporäres Array auf
+		counterFromZero = 0;
+		counterFromLeft = left;
+		while (counterFromLeft <= middle) {
+			tempArray[counterFromZero++] = array[counterFromLeft++];
+		}
 
-	    i=0; k=lo;
-	    while (k<j && j<=hi)
-	        if (b[i]<=array[j])
-	            array[k++]=b[i++];
-	        else
-	            array[k++]=array[j++];
+		//Führe Reißverschlussverfahren durch
+		counterFromZero = 0;
+		counterSortedArray = left;
+		while (counterSortedArray < counterFromLeft && counterFromLeft <= right) {
+			if (tempArray[counterFromZero] <= array[counterFromLeft]) {
+				array[counterSortedArray++] = tempArray[counterFromZero++];
+			}
+			else {
+				array[counterSortedArray++] = array[counterFromLeft++];
+			}
+		}
 
-	    while (k<j)
-	        array[k++]=b[i++];
+		while (counterSortedArray < counterFromLeft) {
+			array[counterSortedArray++] = tempArray[counterFromZero++];
+		}
 	}
 	@Override
 	public void startSingleThreaded(int[] inputArray, int delay) {
@@ -90,8 +131,8 @@ public class Mergesort extends RecursiveAction implements SortAlgorithm  {
 		pool = new ForkJoinPool (parallelThreads);
 		this.delay = delay;
 		this.array = inputArray;
-		this.lo = 0;
-		this.hi = inputArray.length - 1;
+		this.lowerLimit = 0;
+		this.upperLimit = inputArray.length - 1;
 		pool.execute(this);
 	}
 
