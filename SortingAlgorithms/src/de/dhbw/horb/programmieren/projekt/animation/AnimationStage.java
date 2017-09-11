@@ -13,6 +13,11 @@ import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
+/**
+ * AnimationStage stellt das Fenster der ANimation dar.
+ * @author Alexander Lepper
+ *
+ */
 public class AnimationStage extends Stage implements SortingListener {
 
 	SortingService con;
@@ -76,6 +81,11 @@ public class AnimationStage extends Stage implements SortingListener {
 			});
 		}
 		else if (event.getType()==EventType.SORTINGENDED){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e ) {
+				
+			}
 			Platform.runLater(new Runnable() {
 
 				@Override

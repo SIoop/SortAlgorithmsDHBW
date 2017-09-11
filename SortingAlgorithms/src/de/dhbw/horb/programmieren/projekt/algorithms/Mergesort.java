@@ -35,6 +35,8 @@ public class Mergesort extends RecursiveAction implements SortAlgorithm  {
 		this.upperLimit = high;
 	}
 	
+	public Mergesort() {}
+	
 	/**
 	 * Führt Mergesort mit einem Threads aus.
 	 * Dabei wird die Verzögerung beachtet.

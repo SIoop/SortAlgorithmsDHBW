@@ -11,7 +11,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane hgap="5.0" onDragDropped="#fileDropped" onDragOver="#fileDraggedOver" styleClass="root" stylesheets="@../res/style/style.css" vgap="5.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.horb.programmieren.projekt.controller.RootPaneController">
+<GridPane hgap="5.0" onDragDropped="#fileDropped" onDragOver="#fileDraggedOver" styleClass="root" stylesheets="@../res/style/style.css" vgap="5.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.horb.programmieren.projekt.controller.Controller">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="220.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="10.0" prefWidth="85.0" />

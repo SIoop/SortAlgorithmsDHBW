@@ -34,6 +34,8 @@ public class Quicksort extends RecursiveAction implements SortAlgorithm {
 		this.upperLimit = r;
 	}
 	
+	public Quicksort() {}
+	
 	/**
 	 * Single Thread Sorting Methode
 	 * 
