@@ -87,7 +87,7 @@
       <TextField fx:id="tfThreads" text="1" GridPane.columnIndex="1" GridPane.rowIndex="8" />
       <HBox GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="12">
          <children>
-            <Button id="btnCancel" fx:id="btnCancel" mnemonicParsing="false" onAction="#cancelButtonPressed" prefHeight="38.0" prefWidth="150.0" text="ABBRECHEN" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="12">
+            <Button id="btnCancel" fx:id="btnCancel" disable="true" mnemonicParsing="false" onAction="#cancelButtonPressed" prefHeight="38.0" prefWidth="150.0" text="ABBRECHEN" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="12">
                <GridPane.margin>
                   <Insets bottom="10.0" />
                </GridPane.margin>
