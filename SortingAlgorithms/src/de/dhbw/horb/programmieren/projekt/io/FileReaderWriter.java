@@ -8,6 +8,12 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Enthält die Methode zum Einlesen von txt-Dateien.
+ * Es gibt auch eine ungenutzte Methode zum Erstellen von Files, die für Testzwecke genutzt wurde.
+ * @author Alexander Lepper
+ *
+ */
 public class FileReaderWriter {
 
 	public int[] readFile (String filepath) {

@@ -10,6 +10,7 @@ public interface SortAlgorithm {
 	 * @param delay Verzögerung
 	 */
 	public void startSingleThreaded(int[] inputArray, int delay);
+	
 	/**
 	 * Startet den Sortieralgorithmus mit einer angegeben Anzahl an Threads.
 	 * @param inputArray Zu sortierendes Array
@@ -17,10 +18,12 @@ public interface SortAlgorithm {
 	 * @param delay Verzögerung
 	 */
 	public void startMultiThreaded(int [] inputArray, int parallelThreads, int delay);
+	
 	/**
 	 * Bricht die Sortierung ab
 	 */
 	public void cancel();
+	
 	/**
 	 * Blockiert den aufrufenden Thread bis der Sortierlagorithmus beendet ist.
 	 * @throws InterruptedException Warten wurde unterbrochen

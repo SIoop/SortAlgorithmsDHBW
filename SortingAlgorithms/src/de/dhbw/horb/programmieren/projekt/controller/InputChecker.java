@@ -2,6 +2,11 @@ package de.dhbw.horb.programmieren.projekt.controller;
 
 import java.io.File;
 
+/**
+ * Diese Klasse prüft die Benutzereingaben auf der Oberfläche auf Korrektheit.
+ * @author Alexander Lepper
+ *
+ */
 public class InputChecker {
 
 	public class IncorrectInputException extends Exception {
@@ -80,6 +85,8 @@ public class InputChecker {
 			if(!fileInput.endsWith("txt")) {
 				exceptionMessage = exceptionMessage.concat("Nur .txt-Dateien werden akzeptiert!\n");
 			}
+			
+			if(fileInput.equals(""))exceptionMessage = exceptionMessage.concat("Relevante Felder dürfen nicht leer sein!\n");
 		}
 		else if (mode == InputMode.MANUAL) {
 			for (int i = 0; i < manualInput.length(); i++) {
@@ -89,6 +96,7 @@ public class InputChecker {
 					break;
 				}
 			}
+			if(manualInput.equals(""))exceptionMessage = exceptionMessage.concat("Relevante Felder dürfen nicht leer sein!\n");
 		}
 		else {
 			
@@ -118,7 +126,7 @@ public class InputChecker {
 			
 		}
 		
-		if(fileInput.equals("") || threads.equals("") || delay.equals("") || runs.equals("")) exceptionMessage = exceptionMessage.concat("Relevante Felder dürfen nicht leer sein!\n");
+		if(threads.equals("") || delay.equals("") || runs.equals("")) exceptionMessage = exceptionMessage.concat("Relevante Felder dürfen nicht leer sein!\n");
 		
 		//If Exception msg is not empty, throw it
 		if(!exceptionMessage.equals("")) {

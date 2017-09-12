@@ -1,5 +1,10 @@
 package de.dhbw.horb.programmieren.projekt.events;
 
+/**
+ * Events enthalten bestimmte Informationen zum aktuellen Status der Sortierung.
+ * @author Alexander Lepper
+ *
+ */
 public class SortingEvent {
 
 	String message;

@@ -8,6 +8,12 @@ import de.dhbw.horb.programmieren.projekt.events.EventType;
 import de.dhbw.horb.programmieren.projekt.events.SortingEvent;
 import de.dhbw.horb.programmieren.projekt.events.SortingListener;
 
+/**
+ * Sorting Thread ist ein Runnable, das ein Array generiert und die Sortierung mit diesem startet.
+ * Um die Oberfläche nicht zu blockieren, geschieht dies vom Controller aus in einem neuen Thread.
+ * @author itleppa
+ *
+ */
 public class SortingThread implements Runnable {
 
 	String lowerLimit;
@@ -50,9 +56,14 @@ public class SortingThread implements Runnable {
 
 	@Override
 	public void run() {
+		
 		int[] array;
+		
+		//Wirf Event für Beginn der Sortierung
 		listeners.forEach((l) -> {l.handle(new SortingEvent("Sortierung wird gestartet...\nArray wird generiert...\n", EventType.SORTINGSTARTED, 0));});
 		Runtime.getRuntime().gc();
+		
+		//Generiere Array
 		if(mode==InputMode.RANDOM) {
 			array = ArrayGenerator.randomArray(Integer.parseInt(lowerLimit), Integer.parseInt(upperLimit), Integer.parseInt(amount));
 		} else if(mode==InputMode.FILE) {
@@ -65,6 +76,8 @@ public class SortingThread implements Runnable {
 		} else {
 			array = ArrayGenerator.manualArray(manualInput);
 		}
+		
+		//Starte Service mit Zuhörern
 		service = new SortingService(array,threads,delay,runs, algorithm);
 		service.startNewSort(listeners);
 	}

@@ -46,35 +46,51 @@ public class AnimationStage extends Stage implements SortingListener {
 	public void handle(SortingEvent event) {
 		
 		if(event.getType()==EventType.SORTINGRUN) {
+			
+			//Wenn ein Durchlauf der Sortierung startet, erzeuge neuen Timer, der in bestimmten Zeitintervallen die Säulen zeichnet.
 			Platform.runLater(new Runnable () {
 
 				@Override
 				public void run() {
 					AnimationStage.this.show();
+					
+					//Bestimme Maximale Höhe einer Säule
 					max = event.getCurrentArray()[0];
 					for (int i : event.getCurrentArray()) if(i>max)max = i;
+					
+					
 					new AnimationTimer() {
 						@Override
 						public void handle(long arg0) {
+							
+							//Beende Timer wenn Fenster geschlossen ist
 							if(!isShowing())this.stop();
 							
+							//Passe Höhe des Canvas an das Fenster an
 							gc.getCanvas().setWidth(AnimationStage.this.getWidth());
 							gc.getCanvas().setHeight(AnimationStage.this.getHeight());
 							
+							//Höhe und Breite für Berechnung der Säulengröße
 							xSize = (int) gc.getCanvas().getWidth();
 							ySize = (int) gc.getCanvas().getHeight();
 							
-							
+							//Mache Säulen kleiner, falls größte Zahl größer als verfügbare Pixel
 							yAxisMultiplier = ySize/(double)max;
 					        
+							//Bestimmte jede wievielte Zahl berücksichtigt werden soll, falls zu viele Zahlen für Breite
 					        if(event.getCurrentArray().length > xSize ) xSteps = Math.ceil((double)event.getCurrentArray().length/((double)xSize));
 					        else xSteps = 1;
 							
+					        //Falls weniger Säulen als Pixel in Breite, prüfe ob Säulen breiter gemacht werden können
 							int barWidth;
 							if(xSteps==1)barWidth = (xSize)/event.getCurrentArray().length;
 							else barWidth = 1;
+							
+							//Zeichne weißen Hintergrund
 							gc.setFill(Color.WHITE);
 							gc.fillRect(0, 0, xSize, ySize);
+							
+							//Zeichne Säulen
 							gc.setFill(Color.DEEPPINK);
 							for(int i = 0; i < event.getCurrentArray().length; i += xSteps) {
 								gc.fillRect((i/xSteps)*barWidth, ySize-(event.getCurrentArray()[i]*yAxisMultiplier), barWidth, event.getCurrentArray()[i]*yAxisMultiplier);
@@ -86,6 +102,7 @@ public class AnimationStage extends Stage implements SortingListener {
 			});
 		}
 		else if (event.getType()==EventType.SORTINGENDED){
+			//Fenster soll für eine Sekunde offen bleiben, wenn die Sortierung beendet wurde.
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e ) {
@@ -95,7 +112,7 @@ public class AnimationStage extends Stage implements SortingListener {
 
 				@Override
 				public void run() {
-					// TODO Auto-generated method stub
+					
 					close();
 				}
 				

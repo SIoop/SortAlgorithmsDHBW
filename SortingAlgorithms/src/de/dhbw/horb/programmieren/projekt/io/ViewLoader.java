@@ -7,6 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Lädt das FXML-File für das Fenster.
+ * @author Alexander Lepper
+ *
+ */
 public class ViewLoader {
 
 	private static final String APPTITLE = "Sortier Algorithmen";

@@ -4,6 +4,12 @@ import java.util.Random;
 
 import de.dhbw.horb.programmieren.projekt.io.FileReaderWriter;
 
+/**
+ * Der ArrayGenerator generiert entweder ein Zufallszahlen-Arary oder wandelt einen String mit Zahlen und Kommas in ein Array um.
+ * Weiterhin benutzt er den FileReaderWriter um Files einzulesen.
+ * @author Alexander Lepper
+ *
+ */
 public class ArrayGenerator {
 
 	public static int[] randomArray(int lowerLimit, int upperLimit, int amount) {

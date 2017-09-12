@@ -28,6 +28,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
 
+/**
+ * Der Controller reagiert auf Eingaben des Benutzers, startet also den Thread zum Sortieren.
+ * Wenn die Sortierung beendet wurde gibt er das Ergebnis aus.
+ * Er verbindet die View und den SortingService.
+ * @author Alexander Lepper
+ *
+ */
 public class Controller implements SortingListener {
 
 	InputMode inputMode = InputMode.RANDOM;
@@ -101,6 +108,9 @@ public class Controller implements SortingListener {
 	private ImageView logoDHBW;
 
 	@FXML
+	/**
+	 * Wenn Startknopf gedrückt wird, überprüfe Inputs auf Korrektheit und starte Sortier-Thread.
+	 */
 	protected void startButtonPressed() {
 
 		InputChecker checker = new InputChecker(inputMode, tfLowerLimit.getText(), tfUpperLimit.getText(),
@@ -123,6 +133,7 @@ public class Controller implements SortingListener {
 				@Override
 				public void run() {
 					btnStart.setDisable(true);
+					btnCancel.setDisable(false);
 				}
 
 			});
@@ -133,17 +144,23 @@ public class Controller implements SortingListener {
 	}
 
 	@FXML
+	/**
+	 * Brich Algorithmen bei Druck auf Abbrechen-Knopf ab.
+	 */
 	protected void cancelButtonPressed() {
 
 		try {
 			starter.cancel();
 			writeToConsole("Sortierung abgebrochen.");
 		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
+			
 		}
 	}
 
 	@FXML
+	/**
+	 * Bei Druck auf Browse-Button, öffne FileChooser Dialog
+	 */
 	protected void browseButtonPressed() {
 
 		// Open File Chooser
@@ -222,6 +239,9 @@ public class Controller implements SortingListener {
 	}
 
 	@Override
+	/**
+	 * Reagiere auf die verschiedenen Events, die vom SortierService weitergegeben werden.
+	 */
 	public void handle(SortingEvent event) {
 
 		if (event.getType().equals(EventType.SORTINGENDED)) {
@@ -236,6 +256,7 @@ public class Controller implements SortingListener {
 				@Override
 				public void run() {
 					btnStart.setDisable(false);
+					btnCancel.setDisable(true);
 				}
 
 			});
