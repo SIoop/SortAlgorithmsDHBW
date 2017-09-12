@@ -19,6 +19,9 @@ public class InputChecker {
 
 	}
 
+	/**
+	 * Der String aus dem manuellen Eingabefeld der GUI
+	 */
 	String manualInput;
 	String fileInput;
 	String upperLimit;

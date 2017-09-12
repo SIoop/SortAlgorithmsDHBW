@@ -31,14 +31,23 @@ import javafx.stage.FileChooser;
 /**
  * Der Controller reagiert auf Eingaben des Benutzers, startet also den Thread zum Sortieren.
  * Wenn die Sortierung beendet wurde gibt er das Ergebnis aus.
- * Er verbindet die View und den SortingService.
+ * Er verbindet die View und den {@link SortingService}.
  * @author Alexander Lepper
  *
  */
 public class Controller implements SortingListener {
 
+	/**
+	 * Die Art der Benutzereingabe
+	 */
 	InputMode inputMode = InputMode.RANDOM;
+	/**
+	 * Der vom Benutzer ausgewählte Algorithmus
+	 */
 	Algorithm algorithm = Algorithm.QUICKSORT;
+	/**
+	 * Der Thread der die Sortierung startet
+	 */
 	SortingThread starter;
 
 	private static final String FILECHOOSERTITLE = "Wähle Eingabe Datei";

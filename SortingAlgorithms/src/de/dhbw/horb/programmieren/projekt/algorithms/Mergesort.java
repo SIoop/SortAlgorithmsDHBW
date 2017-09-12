@@ -15,11 +15,30 @@ import java.util.concurrent.RecursiveAction;
 public class Mergesort extends RecursiveAction implements SortAlgorithm  {
 
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Das Array der zu sortierenden Zahlen
+	 */
 	int[] array;
-	int lowerLimit, upperLimit;
+	/**
+	 * Die untere Grenze des zu sortierenden Bereiches
+	 */
+	int lowerLimit;
+	/**
+	 * Die obere Grenze des zu sortierenden Bereiches
+	 */
+	int upperLimit;
+	/**
+	 * Die Verzögerung in ms pro Durchlauf. Nur bei Sortierung mit Animation angeben, damit diese sichtbar ist.
+	 */
 	int delay;
 	ForkJoinPool pool;
+	/**
+	 * Die Anzahl der Threads, die zur Sortierung benutzt werden.
+	 */
 	private int parallelThreads;
+	/**
+	 * Gibt an, ob die Sortierung abgebrochen wurde.
+	 */
 	private boolean cancelSort;
 
 	/**

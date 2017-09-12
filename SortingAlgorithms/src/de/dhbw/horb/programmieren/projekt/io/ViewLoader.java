@@ -14,7 +14,13 @@ import javafx.stage.Stage;
  */
 public class ViewLoader {
 
+	/**
+	 * Der Titel der App
+	 */
 	private static final String APPTITLE = "Sortier Algorithmen";
+	/**
+	 * Der Pfad der XML Datei, welche die View darstellt
+	 */
 	private static final String FXMLPATH = "file:src/de/dhbw/horb/programmieren/projekt/view/Window.fxml";
 	private Stage windowStage;
 	

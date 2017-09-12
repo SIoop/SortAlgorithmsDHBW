@@ -16,21 +16,53 @@ import de.dhbw.horb.programmieren.projekt.events.SortingListener;
  */
 public class SortingThread implements Runnable {
 
+	/**
+	 * Der ausgelesene String aus dem Eingabefeld für die untere Grenze des Sortierarrays
+	 */
 	String lowerLimit;
+	/**
+	 * Der ausgelesene String aus dem Eingabefeld für die obere Grenze des Sortierarrays
+	 */
 	String upperLimit;
+	/**
+	 * Der ausgelesene String aus dem Eingabefeld für die Anzahl der zu sortierenden Zahlen
+	 */
 	String amount;
-	
+	/**
+	 * Der ausgelesene String aus dem Eingabefeld für die manuelle Eingabe der Zahlen
+	 */
 	String manualInput;
+	/**
+	 * Der ausgelesene String aus dem Eingabefeld für den Pfad der zu sortierenden Datei
+	 */
 	String fileInput;
 	
+	/**
+	 * Der vom Benutzer ausgewählte Algorithmus
+	 */
 	Algorithm algorithm;
+	/**
+	 * Die Anzahl der zur Sortierung verwendeten Threads
+	 */
 	int threads;
+	/**
+	 * Die Verzögerung in Millisekunden
+	 */
 	int delay;
+	/**
+	 * Die Anzahl der Sortierdurchläufe
+	 */
 	int runs;
+	/**
+	 * Der Eingabemodus für die zu sortierenden Zahlen
+	 */
 	InputMode mode;
 	
 	SortingService service;
 	
+	/**
+	 * Die Listener für diese Klasse
+	 */
 	ArrayList<SortingListener> listeners = new ArrayList<>();
 	
 	
