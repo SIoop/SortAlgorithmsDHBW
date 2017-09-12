@@ -18,16 +18,34 @@ import de.dhbw.horb.programmieren.projekt.events.SortingListener;
  */
 public class SortingService {
 
+	/**
+	 * Das zu sortierende Array
+	 */
 	int[] array;
+	/**
+	 * Die Anzahl der Threads zum Sortieren
+	 */
 	int threads;
+	/**
+	 * Die Vertögerung in Millisekunden
+	 */
 	int delay;
+	/**
+	 * Die Anzahl der Sortierdurchläufe
+	 */
 	int runs;
+	/**
+	 * Der Typ des vom Benutzer ausgewählten Algorithmus
+	 */
 	Algorithm algo;
+	/**
+	 * Der Algorithmus der zur Sortierung verwendet wird
+	 */
 	SortAlgorithm algorithm;
 	
 	/**
 	 * Startet die Sortierung.
-	 * @param listeners Zuhörer, die am SOrtingServcie angemeldet werden sollen.
+	 * @param listeners Zuhörer, die am SortingServcie angemeldet werden sollen.
 	 */
 	public void startNewSort (ArrayList<SortingListener> listeners) {
 		

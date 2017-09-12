@@ -3,7 +3,6 @@ package de.dhbw.horb.programmieren.projekt.animation;
 import de.dhbw.horb.programmieren.projekt.events.EventType;
 import de.dhbw.horb.programmieren.projekt.events.SortingEvent;
 import de.dhbw.horb.programmieren.projekt.events.SortingListener;
-import de.dhbw.horb.programmieren.projekt.sorting.SortingService;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
@@ -21,18 +20,35 @@ import javafx.scene.Scene;
  */
 public class AnimationStage extends Stage implements SortingListener {
 
-	SortingService con;
+	/**
+	 * Der Graphic Context stellt die Funktionen zum Zeichnen der Säulen, welche die Zahlen repräsentieren, bereit.
+	 */
 	private GraphicsContext gc;
+	/**
+	 * Die Breite des Fensters der Animation.
+	 */
 	private int xSize = 1000;
+	/**
+	 * Die Höhe des Fensters der Animation.
+	 */
 	private int ySize = 500;
+	/**
+	 * Der Faktor zur Anpassung der Säulengröße, falls die höchste Zahl größer als die Anzahl der verfügbaren Pixel ist.
+	 */
 	double yAxisMultiplier;
+	/**
+	 * Die Schrittweite der berücksichtigten Zahlen, falls es zu viele Zahlen sind um in dem Fenster dargestellt zu werden.
+	 */
 	double xSteps;
+	/**
+	 * Die höchste zu sortierende Zahl
+	 */
 	int max;
 	Stage stage;
 	
 	public AnimationStage () {
 		
-			Canvas canvas = new Canvas(1000, 500);
+			Canvas canvas = new Canvas(xSize, ySize);
 			gc = canvas.getGraphicsContext2D();
 			Group root = new Group();
 			root.getChildren().add(canvas);
@@ -70,7 +86,7 @@ public class AnimationStage extends Stage implements SortingListener {
 							gc.getCanvas().setWidth(AnimationStage.this.getWidth());
 							gc.getCanvas().setHeight(AnimationStage.this.getHeight());
 							
-							//Höhe und Breite für Berechnung der Säulengröße
+							//Höhe und Breite für Berechnung des Fensters anhand der Säulengröße
 							xSize = (int) gc.getCanvas().getWidth();
 							ySize = (int) gc.getCanvas().getHeight();
 							

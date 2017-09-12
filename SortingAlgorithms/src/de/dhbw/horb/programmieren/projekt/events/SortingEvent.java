@@ -7,9 +7,21 @@ package de.dhbw.horb.programmieren.projekt.events;
  */
 public class SortingEvent {
 
+	/**
+	 * Die Benachrichtigung, die der Benutzer in der Konsole erhält, wenn ein Event ausgelöst wurde
+	 */
 	String message;
+	/**
+	 * Die Art des ausgelösten Events
+	 */
 	EventType type;
+	/**
+	 * Die Zeit, die für die Sortierung benötigt wurde (wird auch in der Konsole ausgegeben)
+	 */
 	long time;
+	/**
+	 * Das Array mit den zu sortierenden Zahlen
+	 */
 	int[] currentArray;
 	
 
