@@ -7,7 +7,7 @@ import de.dhbw.horb.programmieren.projekt.io.FileReaderWriter;
 /**
  * Der ArrayGenerator generiert entweder ein Zufallszahlen-Arary oder wandelt einen String mit Zahlen und Kommas in ein Array um.
  * Weiterhin benutzt er den FileReaderWriter um Files einzulesen.
- * @author Alexander Lepper
+ * @author Nick Lamparter
  *
  */
 public class ArrayGenerator {

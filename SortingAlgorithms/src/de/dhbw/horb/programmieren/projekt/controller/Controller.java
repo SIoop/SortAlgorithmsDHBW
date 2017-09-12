@@ -32,7 +32,7 @@ import javafx.stage.FileChooser;
  * Der Controller reagiert auf Eingaben des Benutzers, startet also den Thread zum Sortieren.
  * Wenn die Sortierung beendet wurde gibt er das Ergebnis aus.
  * Er verbindet die View und den SortingService.
- * @author Alexander Lepper
+ * @author Robert Metzinger
  *
  */
 public class Controller implements SortingListener {

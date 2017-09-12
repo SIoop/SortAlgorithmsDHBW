@@ -4,7 +4,7 @@ import java.io.File;
 
 /**
  * Diese Klasse prüft die Benutzereingaben auf der Oberfläche auf Korrektheit.
- * @author Alexander Lepper
+ * @author Robert Metzinger
  *
  */
 public class InputChecker {

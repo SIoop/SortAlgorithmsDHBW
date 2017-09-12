@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Enthält die Methode zum Einlesen von txt-Dateien.
  * Es gibt auch eine ungenutzte Methode zum Erstellen von Files, die für Testzwecke genutzt wurde.
- * @author Alexander Lepper
+ * @author Nick Lamparter
  *
  */
 public class FileReaderWriter {

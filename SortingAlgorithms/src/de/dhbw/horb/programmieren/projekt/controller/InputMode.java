@@ -2,7 +2,7 @@ package de.dhbw.horb.programmieren.projekt.controller;
 
 /**
  * Die verschiedenen Eingabemodi.
- * @author Alexander Lepper
+ * @author Robert Metzinger
  *
  */
 public enum InputMode {

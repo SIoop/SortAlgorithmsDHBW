@@ -11,7 +11,7 @@ import de.dhbw.horb.programmieren.projekt.events.SortingListener;
 /**
  * Sorting Thread ist ein Runnable, das ein Array generiert und die Sortierung mit diesem startet.
  * Um die Oberfläche nicht zu blockieren, geschieht dies vom Controller aus in einem neuen Thread.
- * @author itleppa
+ * @author Nick Lamparter
  *
  */
 public class SortingThread implements Runnable {

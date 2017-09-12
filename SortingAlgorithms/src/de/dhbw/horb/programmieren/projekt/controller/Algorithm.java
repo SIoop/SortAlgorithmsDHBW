@@ -7,7 +7,7 @@ import de.dhbw.horb.programmieren.projekt.algorithms.Mergesort;
 /**
  * Bildet einen Wrapper um die zu benutzende Algorithmusklasse.
  * Hier werden die spezifischen Implementierungen hinterlegt.
- * @author Alexander Lepper
+ * @author Robert Metzinger
  *
  */
 public enum Algorithm {
