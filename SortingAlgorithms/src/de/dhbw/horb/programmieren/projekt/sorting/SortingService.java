@@ -13,7 +13,7 @@ import de.dhbw.horb.programmieren.projekt.events.SortingListener;
 
 /**
  * Der SortingService bewerkstelligt das eigentliche Starten der Algorithmen.
- * @author Alexander Lepper
+ * @author Nick Lamparter
  *
  */
 public class SortingService {

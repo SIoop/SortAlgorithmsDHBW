@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 /**
  * Lädt das FXML-File für das Fenster.
- * @author Alexander Lepper
+ * @author Nick Lamparter
  *
  */
 public class ViewLoader {

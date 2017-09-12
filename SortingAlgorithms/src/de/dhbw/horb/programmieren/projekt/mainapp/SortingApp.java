@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 /**
  * SortingApp dient als Einstiegspunkt für die Anwendung.
  * 
- * @author Alexander Lepper
+ * @author Nick Lamparter
  */
 public class SortingApp extends Application {
 	
