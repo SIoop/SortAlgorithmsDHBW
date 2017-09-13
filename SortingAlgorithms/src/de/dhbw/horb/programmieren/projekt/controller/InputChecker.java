@@ -9,16 +9,6 @@ import java.io.File;
  */
 public class InputChecker {
 
-	public class IncorrectInputException extends Exception {
-
-		public IncorrectInputException(String string) {
-			super(string);
-		}
-
-		private static final long serialVersionUID = -3454104695997470670L;
-
-	}
-
 	/**
 	 * Der String aus dem manuellen Eingabefeld der GUI
 	 */

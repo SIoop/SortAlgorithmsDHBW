@@ -41,19 +41,6 @@ public class Quicksort extends RecursiveAction implements SortAlgorithm {
 	 */
 	private boolean cancelSort = false;
 	
-	/**
-	 * 
-	 * @param arr Array to sort
-	 * @param l Lower Limit
-	 * @param r Upper Limit
-	 * @param delay Verzögerung
-	 */
-	public Quicksort (int [] arr, int l, int r, int delay) {
-		this.array = arr;
-		this.lowerLimit = l;
-		this.upperLimit = r;
-	}
-	
 	public Quicksort() {}
 	
 	/**
@@ -95,7 +82,9 @@ public class Quicksort extends RecursiveAction implements SortAlgorithm {
 		}
 		if (lowerLimit<upperLimit) {
 			int pivotPos = divide(lowerLimit, upperLimit);
-			invokeAll(new Quicksort(array, lowerLimit, pivotPos, delay), new Quicksort(array, pivotPos + 1, upperLimit, delay));
+			Quicksort quicksort1 = new Quicksort().setAttributes(array, lowerLimit, pivotPos, delay);
+			Quicksort quicksort2 = new Quicksort().setAttributes(array, pivotPos + 1, upperLimit, delay);
+			invokeAll(quicksort1, quicksort2);
 		}
 		
 	}
@@ -133,6 +122,15 @@ public class Quicksort extends RecursiveAction implements SortAlgorithm {
 			array[leftCounter] = array[rightCounter];
 			array[rightCounter] = temp;
 		}
+	}
+	
+	private Quicksort setAttributes (int[] array, int lowerLimit, int upperLimit, int delay) {
+		
+		this.array = array;
+		this.lowerLimit = lowerLimit;
+		this.upperLimit = upperLimit;
+		this.delay = delay;
+		return this;
 	}
 
 	@Override

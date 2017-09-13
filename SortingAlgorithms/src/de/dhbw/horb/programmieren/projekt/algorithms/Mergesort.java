@@ -40,19 +40,6 @@ public class Mergesort extends RecursiveAction implements SortAlgorithm  {
 	 * Gibt an, ob die Sortierung abgebrochen wurde.
 	 */
 	private boolean cancelSort;
-
-	/**
-	 * 
-	 * @param array Zu sortierendes Array
-	 * @param low Untere Grenze des zu sortierendes Bereichs
-	 * @param high Obere Grenze des zu sortierenden Bereichs
-	 * @param delay Verzögerung in ms pro Durchlauf
-	 */
-	Mergesort(int[] array, int low, int high, int delay) {
-		this.array = array;
-		this.lowerLimit = low;
-		this.upperLimit = high;
-	}
 	
 	public Mergesort() {}
 	
@@ -97,7 +84,9 @@ public class Mergesort extends RecursiveAction implements SortAlgorithm  {
 				}
 			}
 			int middle =(lowerLimit + upperLimit) / 2;
-			invokeAll(new Mergesort(array, lowerLimit, middle, delay), new Mergesort(array, middle+1, upperLimit, delay));
+			Mergesort mergesort1 = new Mergesort().setAttributes(array, lowerLimit, middle, delay);
+			Mergesort mergesort2 = new Mergesort().setAttributes(array, middle+1, upperLimit, delay);
+			invokeAll(mergesort1, mergesort2);
 			merge(lowerLimit, middle, upperLimit);
 		}
 	}
@@ -137,6 +126,16 @@ public class Mergesort extends RecursiveAction implements SortAlgorithm  {
 			array[counterSortedArray++] = tempArray[counterFromZero++];
 		}
 	}
+	
+	public Mergesort setAttributes (int[] array, int lowerLimit, int upperLimit, int delay) {
+		
+		this.array = array;
+		this.lowerLimit = lowerLimit;
+		this.upperLimit = upperLimit;
+		this.delay = delay;
+		return this;
+	}
+	
 	@Override
 	public void startSingleThreaded(int[] inputArray, int delay) {
 

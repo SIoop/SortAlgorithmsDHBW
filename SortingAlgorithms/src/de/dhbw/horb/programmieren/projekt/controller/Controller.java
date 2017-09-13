@@ -8,8 +8,6 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 
 import de.dhbw.horb.programmieren.projekt.animation.AnimationStage;
-import de.dhbw.horb.programmieren.projekt.controller.InputChecker.IncorrectInputException;
-import de.dhbw.horb.programmieren.projekt.events.EventType;
 import de.dhbw.horb.programmieren.projekt.events.SortingEvent;
 import de.dhbw.horb.programmieren.projekt.events.SortingListener;
 import de.dhbw.horb.programmieren.projekt.sorting.SortingThread;
@@ -147,7 +145,7 @@ public class Controller implements SortingListener {
 
 			});
 		} catch (IncorrectInputException e) {
-			writeToConsole(e.getMessage());
+			writeToTextArea(e.getMessage());
 		}
 
 	}
@@ -160,7 +158,7 @@ public class Controller implements SortingListener {
 
 		try {
 			starter.cancel();
-			writeToConsole("Sortierung abgebrochen.");
+			writeToTextArea("Sortierung abgebrochen.\n");
 		} catch (NullPointerException e) {
 			
 		}
@@ -236,15 +234,9 @@ public class Controller implements SortingListener {
 		algorithm = Algorithm.MERGESORT;
 	}
 
-	protected void writeToConsole(String write) {
-		Platform.runLater(new Runnable() {
-
-			@Override
-			public void run() {
-				console.appendText(write);
-			}
-
-		});
+	protected void writeToTextArea(String write) {
+		
+		Platform.runLater(() -> {console.appendText(write);});
 	}
 
 	@Override
@@ -252,37 +244,42 @@ public class Controller implements SortingListener {
 	 * Reagiere auf die verschiedenen Events, die vom SortierService weitergegeben werden.
 	 */
 	public void handle(SortingEvent event) {
-
-		if (event.getType().equals(EventType.SORTINGENDED)) {
-			writeToConsole("Sortierung wurde nach " + event.getTime()/1000.0 + " Millisekunden beendet!\n" + LINESEPERATOR);
+		
+		switch (event.getType()) {
+		
+		case ARRAYGENERATED:
+			
+			writeToTextArea("Array wurde generiert! Algorithmus wird gestartet...\n");
+			break;
+		case FILEERROR:
+			
+			writeToTextArea(event.getMessage());
+			Platform.runLater(() -> {
+				btnStart.setDisable(false);
+				btnCancel.setDisable(true);});
+			break;
+		case SORTINGENDED:
+			
+			writeToTextArea("Sortierung wurde nach " + event.getTime()/1000.0 + " Millisekunden beendet!\n" + LINESEPERATOR);
+			
 			if (chkConsoleOutput.isSelected() && event.getCurrentArray().length <= 1000000) {
-				writeToConsole("Array: " + Arrays.toString(event.getCurrentArray()) + "\n" + LINESEPERATOR);
+				
+				writeToTextArea("Array: " + Arrays.toString(event.getCurrentArray()) + "\n" + LINESEPERATOR);
 			} else if (chkConsoleOutput.isSelected() && event.getCurrentArray().length > 1000000) {
-				writeToConsole("Ausgabe eines Arrays nur bis zur Größe von 1.000.000 möglich!");
+				
+				writeToTextArea("Ausgabe eines Arrays nur bis zur Größe von 1.000.000 möglich!");
 			}
-			Platform.runLater(new Runnable() {
-
-				@Override
-				public void run() {
-					btnStart.setDisable(false);
-					btnCancel.setDisable(true);
-				}
-
-			});
-		} else if (event.getType().equals(EventType.ARRAYGENERATED)) {
-			writeToConsole("Array wurde generiert! Algorithmus wird gestartet...\n");
-		} else if (event.getType().equals(EventType.SORTINGSTARTED)) {
-			writeToConsole(event.getMessage());
-		} else if (event.getType().equals(EventType.FILEERROR)) {
-			writeToConsole(event.getMessage());
-			Platform.runLater(new Runnable() {
-
-				@Override
-				public void run() {
-					btnStart.setDisable(false);
-				}
-
-			});
+			Platform.runLater(() -> {
+				btnStart.setDisable(false);
+				btnCancel.setDisable(true);});
+			break;
+		case SORTINGSTARTED:
+			
+			writeToTextArea(event.getMessage());
+			break;
+		default:
+			break;
+		
 		}
 	}
 
@@ -319,10 +316,11 @@ public class Controller implements SortingListener {
 	void logoClicked(MouseEvent event) {
 
 		try {
+			
 			URI uri = new URI("https://www.dhbw-stuttgart.de/horb/home/");
 			Desktop.getDesktop().browse(uri);
 		} catch (URISyntaxException | IOException | IllegalArgumentException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}

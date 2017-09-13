@@ -21,27 +21,27 @@ public class SortingService {
 	/**
 	 * Das zu sortierende Array
 	 */
-	int[] array;
+	private int[] array;
 	/**
 	 * Die Anzahl der Threads zum Sortieren
 	 */
-	int threads;
+	private int threads;
 	/**
 	 * Die Vertögerung in Millisekunden
 	 */
-	int delay;
+	private int delay;
 	/**
 	 * Die Anzahl der Sortierdurchläufe
 	 */
-	int runs;
+	private int runs;
 	/**
 	 * Der Typ des vom Benutzer ausgewählten Algorithmus
 	 */
-	Algorithm algo;
+	private Algorithm algo;
 	/**
 	 * Der Algorithmus der zur Sortierung verwendet wird
 	 */
-	SortAlgorithm algorithm;
+	private SortAlgorithm algorithm;
 	
 	/**
 	 * Startet die Sortierung.

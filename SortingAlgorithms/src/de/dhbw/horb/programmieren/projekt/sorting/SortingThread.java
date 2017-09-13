@@ -19,51 +19,51 @@ public class SortingThread implements Runnable {
 	/**
 	 * Der ausgelesene String aus dem Eingabefeld für die untere Grenze des Sortierarrays
 	 */
-	String lowerLimit;
+	private String lowerLimit;
 	/**
 	 * Der ausgelesene String aus dem Eingabefeld für die obere Grenze des Sortierarrays
 	 */
-	String upperLimit;
+	private String upperLimit;
 	/**
 	 * Der ausgelesene String aus dem Eingabefeld für die Anzahl der zu sortierenden Zahlen
 	 */
-	String amount;
+	private String amount;
 	/**
 	 * Der ausgelesene String aus dem Eingabefeld für die manuelle Eingabe der Zahlen
 	 */
-	String manualInput;
+	private String manualInput;
 	/**
 	 * Der ausgelesene String aus dem Eingabefeld für den Pfad der zu sortierenden Datei
 	 */
-	String fileInput;
+	private String fileInput;
 	
 	/**
 	 * Der vom Benutzer ausgewählte Algorithmus
 	 */
-	Algorithm algorithm;
+	private Algorithm algorithm;
 	/**
 	 * Die Anzahl der zur Sortierung verwendeten Threads
 	 */
-	int threads;
+	private int threads;
 	/**
 	 * Die Verzögerung in Millisekunden
 	 */
-	int delay;
+	private int delay;
 	/**
 	 * Die Anzahl der Sortierdurchläufe
 	 */
-	int runs;
+	private int runs;
 	/**
 	 * Der Eingabemodus für die zu sortierenden Zahlen
 	 */
-	InputMode mode;
+	private InputMode mode;
 	
-	SortingService service;
+	private SortingService service;
 	
 	/**
 	 * Die Listener für diese Klasse
 	 */
-	ArrayList<SortingListener> listeners = new ArrayList<>();
+	private ArrayList<SortingListener> listeners = new ArrayList<>();
 	
 	
 	public SortingThread(String lowerLimit, String upperLimit, String amount, String manualInput, String fileInput,

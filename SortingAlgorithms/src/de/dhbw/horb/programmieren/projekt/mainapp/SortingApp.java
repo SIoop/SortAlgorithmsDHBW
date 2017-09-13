@@ -2,8 +2,10 @@ package de.dhbw.horb.programmieren.projekt.mainapp;
 
 import java.io.IOException;
 
-import de.dhbw.horb.programmieren.projekt.io.ViewLoader;
+import de.dhbw.horb.programmieren.projekt.view.View;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -13,6 +15,10 @@ import javafx.stage.Stage;
  */
 public class SortingApp extends Application {
 	
+	/**
+	 * Der Titel der App
+	 */
+	private static final String APPTITLE = "Sortier Algorithmen";
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -20,7 +26,12 @@ public class SortingApp extends Application {
 		//Try to load Window
 		try {
 			
-			new ViewLoader(primaryStage).mainWindow();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(View.class.getResource("Window.fxml"));
+			Scene scene = new Scene(loader.load());
+			primaryStage.setScene(scene);		
+			primaryStage.setTitle(APPTITLE);
+			primaryStage.show();
 			
 		} catch (IOException e) {
 			e.printStackTrace();

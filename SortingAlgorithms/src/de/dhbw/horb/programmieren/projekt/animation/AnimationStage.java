@@ -1,13 +1,10 @@
 package de.dhbw.horb.programmieren.projekt.animation;
 
-import de.dhbw.horb.programmieren.projekt.events.EventType;
 import de.dhbw.horb.programmieren.projekt.events.SortingEvent;
 import de.dhbw.horb.programmieren.projekt.events.SortingListener;
-import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -23,15 +20,15 @@ public class AnimationStage extends Stage implements SortingListener {
 	/**
 	 * Der Graphic Context stellt die Funktionen zum Zeichnen der Säulen, welche die Zahlen repräsentieren, bereit.
 	 */
-	private GraphicsContext gc;
+	GraphicsContext gc;
 	/**
 	 * Die Breite des Fensters der Animation.
 	 */
-	private int xSize = 1000;
+	int xSize = 1000;
 	/**
 	 * Die Höhe des Fensters der Animation.
 	 */
-	private int ySize = 500;
+	int ySize = 500;
 	/**
 	 * Der Faktor zur Anpassung der Säulengröße, falls die höchste Zahl größer als die Anzahl der verfügbaren Pixel ist.
 	 */
@@ -61,78 +58,36 @@ public class AnimationStage extends Stage implements SortingListener {
 	 */
 	public void handle(SortingEvent event) {
 		
-		if(event.getType()==EventType.SORTINGRUN) {
+		switch (event.getType()) {
+		
+		case SORTINGRUN:
 			
-			//Wenn ein Durchlauf der Sortierung startet, erzeuge neuen Timer, der in bestimmten Zeitintervallen die Säulen zeichnet.
-			Platform.runLater(new Runnable () {
-
-				@Override
-				public void run() {
-					AnimationStage.this.show();
-					
-					//Bestimme Maximale Höhe einer Säule
-					max = event.getCurrentArray()[0];
-					for (int i : event.getCurrentArray()) if(i>max)max = i;
-					
-					
-					new AnimationTimer() {
-						@Override
-						public void handle(long arg0) {
-							
-							//Beende Timer wenn Fenster geschlossen ist
-							if(!isShowing())this.stop();
-							
-							//Passe Höhe des Canvas an das Fenster an
-							gc.getCanvas().setWidth(AnimationStage.this.getWidth());
-							gc.getCanvas().setHeight(AnimationStage.this.getHeight());
-							
-							//Höhe und Breite für Berechnung des Fensters anhand der Säulengröße
-							xSize = (int) gc.getCanvas().getWidth();
-							ySize = (int) gc.getCanvas().getHeight();
-							
-							//Mache Säulen kleiner, falls größte Zahl größer als verfügbare Pixel
-							yAxisMultiplier = ySize/(double)max;
-					        
-							//Bestimmte jede wievielte Zahl berücksichtigt werden soll, falls zu viele Zahlen für Breite
-					        if(event.getCurrentArray().length > xSize ) xSteps = Math.ceil((double)event.getCurrentArray().length/((double)xSize));
-					        else xSteps = 1;
-							
-					        //Falls weniger Säulen als Pixel in Breite, prüfe ob Säulen breiter gemacht werden können
-							int barWidth;
-							if(xSteps==1)barWidth = (xSize)/event.getCurrentArray().length;
-							else barWidth = 1;
-							
-							//Zeichne weißen Hintergrund
-							gc.setFill(Color.WHITE);
-							gc.fillRect(0, 0, xSize, ySize);
-							
-							//Zeichne Säulen
-							gc.setFill(Color.DEEPPINK);
-							for(int i = 0; i < event.getCurrentArray().length; i += xSteps) {
-								gc.fillRect((i/xSteps)*barWidth, ySize-(event.getCurrentArray()[i]*yAxisMultiplier), barWidth, event.getCurrentArray()[i]*yAxisMultiplier);
-							}
-						}
-			    	}.start();
-				}
+			//Wenn ein Durchlauf der Sortierung startet, starte einen neuen Timer, der die Ansicht updatet
+			Platform.runLater(() -> {
 				
+				AnimationStage.this.show();
+				
+				//Bestimme maximale Höhe einer Säule
+				max = event.getCurrentArray()[0];
+				for (int i : event.getCurrentArray()) if(i>max)max = i;
+				
+				
+				new SortAnimationTimer(AnimationStage.this, event).start();
 			});
-		}
-		else if (event.getType()==EventType.SORTINGENDED){
-			//Fenster soll für eine Sekunde offen bleiben, wenn die Sortierung beendet wurde.
+			break;
+				
+		case SORTINGENDED:
+			
+			//Wenn Sortierung beendet ist, warte 1 Sekunde und schließe das Fenster dann
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e ) {
-				
+				e.printStackTrace();
 			}
-			Platform.runLater(new Runnable() {
-
-				@Override
-				public void run() {
-					
-					close();
-				}
-				
-			});
+			Platform.runLater(() -> {close();});
+			break;
+		default:
+			break;
 		}
 	}
 }
