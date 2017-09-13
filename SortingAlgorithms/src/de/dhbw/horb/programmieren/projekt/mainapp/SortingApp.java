@@ -27,7 +27,7 @@ public class SortingApp extends Application {
 		try {
 			
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(View.class.getResource("Window.fxml"));
+			loader.setLocation(SortingApp.class.getResource("../view/Window.fxml"));
 			Scene scene = new Scene(loader.load());
 			primaryStage.setScene(scene);		
 			primaryStage.setTitle(APPTITLE);
