@@ -11,7 +11,7 @@ import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 
 import de.dhbw.horb.programmieren.projekt.controller.Controller;
-import de.dhbw.horb.programmieren.projekt.mainapp.SortingApp;
+import de.dhbw.horb.programmieren.projekt.SortingApp;
 
 @RunWith(JUnit4.class)
 public class SortAlgorithmTest {

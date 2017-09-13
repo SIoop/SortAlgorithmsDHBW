@@ -1,8 +1,7 @@
-package de.dhbw.horb.programmieren.projekt.mainapp;
+package de.dhbw.horb.programmieren.projekt;
 
 import java.io.IOException;
 
-import de.dhbw.horb.programmieren.projekt.view.View;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,7 +26,7 @@ public class SortingApp extends Application {
 		try {
 			
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(SortingApp.class.getResource("../view/Window.fxml"));
+			loader.setLocation(SortingApp.class.getResource("view/Window.fxml"));
 			Scene scene = new Scene(loader.load());
 			primaryStage.setScene(scene);		
 			primaryStage.setTitle(APPTITLE);
