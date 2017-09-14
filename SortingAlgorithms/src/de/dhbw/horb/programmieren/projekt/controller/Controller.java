@@ -15,6 +15,8 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
@@ -162,7 +164,11 @@ public class Controller implements SortingListener {
 
 			});
 		} catch (IncorrectInputException e) {
-			writeToTextArea(e.getMessage());
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Ungültige Eingabe");
+			alert.setHeaderText("Die eingegebenen Werte sind ungültig!");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
 		}
 
 	}
