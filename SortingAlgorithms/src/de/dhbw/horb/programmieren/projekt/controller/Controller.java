@@ -12,6 +12,7 @@ import de.dhbw.horb.programmieren.projekt.events.SortingEvent;
 import de.dhbw.horb.programmieren.projekt.events.SortingListener;
 import de.dhbw.horb.programmieren.projekt.sorting.SortingThread;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -114,6 +115,22 @@ public class Controller implements SortingListener {
 	@FXML
 	private ImageView logoDHBW;
 
+	@FXML
+	public void initialize() {
+		addChangeListener(tfAmount);
+		addChangeListener(tfRuns);
+		addChangeListener(tfDelay);
+		addChangeListener(tfThreads);
+	}
+	
+	private void addChangeListener (TextField tf) {
+		tf.textProperty().addListener((obs, oldValue, newValue) -> {
+			if (!((String) newValue).matches("\\d*")) {
+                tf.setText(((String) newValue).replaceAll("\\D", ""));
+            }
+		});
+	}
+	
 	@FXML
 	/**
 	 * Wenn Startknopf gedrückt wird, überprüfe Inputs auf Korrektheit und starte Sortier-Thread.
