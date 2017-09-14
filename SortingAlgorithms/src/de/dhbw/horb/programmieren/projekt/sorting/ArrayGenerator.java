@@ -1,6 +1,6 @@
 package de.dhbw.horb.programmieren.projekt.sorting;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import de.dhbw.horb.programmieren.projekt.io.FileReaderWriter;
 
@@ -18,8 +18,7 @@ public class ArrayGenerator {
 
 		for (int o = 0; o < genArray.length; o++) {
 
-			Random p = new Random();
-			int Result = p.nextInt((upperLimit + 1) - lowerLimit) + lowerLimit;
+			int Result = ThreadLocalRandom.current().nextInt(lowerLimit, upperLimit + 1);
 			genArray[o] = Result;
 
 		}
