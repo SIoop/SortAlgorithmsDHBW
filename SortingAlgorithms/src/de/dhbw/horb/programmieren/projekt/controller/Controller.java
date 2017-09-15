@@ -12,7 +12,6 @@ import de.dhbw.horb.programmieren.projekt.events.SortingEvent;
 import de.dhbw.horb.programmieren.projekt.events.SortingListener;
 import de.dhbw.horb.programmieren.projekt.sorting.SortingThread;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -154,14 +153,9 @@ public class Controller implements SortingListener {
 			Thread thread = new Thread(starter);
 			thread.setDaemon(true);
 			thread.start();
-			Platform.runLater(new Runnable() {
-
-				@Override
-				public void run() {
-					btnStart.setDisable(true);
-					btnCancel.setDisable(false);
-				}
-
+			Platform.runLater(() -> {
+				btnStart.setDisable(true);
+				btnCancel.setDisable(false);
 			});
 		} catch (IncorrectInputException e) {
 			Alert alert = new Alert(AlertType.ERROR);

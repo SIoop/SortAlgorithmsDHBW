@@ -1,4 +1,4 @@
-package de.dhbw.horb.programmieren;
+package de.dhbw.horb.programmieren.projekt.test;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
