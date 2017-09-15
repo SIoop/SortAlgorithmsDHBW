@@ -79,7 +79,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></RadioButton>
-      <RadioButton fx:id="rbtnQuickSort" mnemonicParsing="false" onAction="#mergeSelected" text="MergeSort" toggleGroup="$Algorithm" GridPane.rowIndex="7">
+      <RadioButton fx:id="rbtnMergeSort" mnemonicParsing="false" onAction="#mergeSelected" text="MergeSort" toggleGroup="$Algorithm" GridPane.rowIndex="7">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></RadioButton>
@@ -109,7 +109,7 @@
          </GridPane.margin>
       </HBox>
       <TextArea fx:id="console" maxHeight="1000.0" prefHeight="239.0" prefWidth="700.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="13" />
-      <TitledPane id="moreOptionsPane" expanded="false" text="Weitere Optionen" GridPane.columnSpan="2147483647" GridPane.rowIndex="10">
+      <TitledPane fx:id="moreOptionsPane" expanded="false" text="Weitere Optionen" GridPane.columnSpan="2147483647" GridPane.rowIndex="10">
         <content>
           <AnchorPane>
                <children>
