@@ -5,8 +5,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import de.dhbw.horb.programmieren.projekt.algorithms.test.QuicksortTest;
+import de.dhbw.horb.programmieren.projekt.view.test.ViewTest;
 import de.dhbw.horb.programmieren.projekt.algorithms.test.MergesortTest;
-import de.dhwb.horb.programmieren.projekt.view.ViewTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ViewTest.class, QuicksortTest.class, MergesortTest.class})

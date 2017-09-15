@@ -1,4 +1,4 @@
-package de.dhwb.horb.programmieren.projekt.view;
+package de.dhbw.horb.programmieren.projekt.view.test;
 
 import java.util.concurrent.TimeoutException;
 
